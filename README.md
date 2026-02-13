@@ -1,6 +1,6 @@
 # Sistema de Controle de Clientes e Veículos
 
-Este projeto foi desenvolvido como um desafio técnico para gerenciar o cadastro de clientes e suas respectivas placas de carro. A ideia aqui foi construir uma interface fluida em Angular que consome uma estrutura de dados preparada para uma API REST.
+Este projeto foi desenvolvido para gerenciar o cadastro de clientes e suas respectivas placas de carro. A ideia aqui foi construir uma interface fluida em Angular que consome uma estrutura de dados preparada para uma API REST.
 
 ## Tecnologias e Escolhas
 
@@ -22,8 +22,8 @@ Você só vai precisar do Docker instalado. Não precisa se preocupar em instala
 
 1.  Clone o repositório:
     ```bash
-    git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
-    cd seu-repositorio
+    git clone https://github.com/wendell-noce/vehicle-customer-manager.git
+    cd vehicle-customer-manager
     ```
 
 2.  Suba o ambiente:
@@ -39,4 +39,4 @@ Você só vai precisar do Docker instalado. Não precisa se preocupar em instala
 Para manter a imagem leve, usei um processo de "Multi-stage Build". Primeiro, o Docker usa o Node para buildar o projeto e gerar os arquivos de produção. Depois, ele descarta o Node e passa apenas os arquivos prontos para uma imagem enxuta do Nginx.
 
 ---
-Projeto desenvolvido para avaliação técnica.
+
