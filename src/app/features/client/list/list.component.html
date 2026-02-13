@@ -1,0 +1,91 @@
+<div class="max-w-6xl mx-auto p-6 space-y-8">
+  <header class="border-b pb-4">
+    <h1 class="text-2xl font-bold text-slate-800">Customer & Vehicle Control</h1>
+    <p class="text-slate-500 text-sm">Manage your clients and car plates efficiently.</p>
+  </header>
+
+  <section class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+    <h2 class="text-lg font-semibold mb-4 text-slate-700">New Registration</h2>
+    <div class="">
+      <form [formGroup]="clientForm" (ngSubmit)="save()" class="grid grid-cols-1 md:grid-cols-4 gap-4 w-full">
+        <div>
+          <input formControlName="nome" placeholder="Full name"
+                [class.border-red-500]="clientForm.get('nome')?.invalid && clientForm.get('nome')?.touched"
+                class="w-full px-4 py-2 rounded-lg border outline-none">
+        </div>
+
+        <div>
+          <input formControlName="cpf" placeholder="CPF"
+                [class.border-red-500]="clientForm.get('cpf')?.invalid && clientForm.get('cpf')?.touched"
+                class="w-full px-4 py-2 rounded-lg border outline-none">
+          @if (clientForm.get('cpf')?.errors?.['invalidCpf'] && clientForm.get('cpf')?.touched) {
+            <span class="text-red-500 text-xs mt-1">Invalid CPF</span>
+          }
+        </div>
+
+        <div>
+          <input formControlName="telefone" placeholder="Telefone"
+                [class.border-red-500]="clientForm.get('telefone')?.invalid && clientForm.get('telefone')?.touched"
+                class="w-full px-4 py-2 rounded-lg border outline-none">
+          @if (clientForm.get('telefone')?.errors?.['required'] && clientForm.get('cpf')?.touched) {
+            <span class="text-red-500 text-xs mt-1">This field is required</span>
+          }
+        </div>
+
+        <div>
+          <input formControlName="placaCarro" placeholder="Plate (ABC1234)"
+                [class.border-red-500]="clientForm.get('placaCarro')?.invalid && clientForm.get('placaCarro')?.touched"
+                class="w-full px-4 py-2 rounded-lg border outline-none">
+          @if (clientForm.get('placaCarro')?.errors?.['invalidPlate'] && clientForm.get('placaCarro')?.touched) {
+            <p class="text-red-500 text-[10px] mt-1 absolute">Invalid format (AAA0A00 or AAA0000)</p>
+          }
+        </div>
+
+        <button type="submit" [disabled]="clientForm.invalid"
+                class="bg-slate-900 text-white font-medium py-2 rounded-lg disabled:opacity-50">
+          Add Client
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <div class="flex items-center gap-2">
+      <input [(ngModel)]="searchDigit" (keyup)="applyFilter()" placeholder="Search by last digit..." class="px-4 py-2 border rounded-lg w-64 focus:border-blue-500 outline-none">
+
+    </div>
+
+    <div class="overflow-hidden border border-slate-200 rounded-xl">
+      <table class="w-full text-left border-collapse bg-white">
+        <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 text-sm uppercase">
+          <tr>
+            <th class="px-6 py-4 font-semibold">Nome</th>
+            <th class="px-6 py-4 font-semibold">CPF</th>
+            <th class="px-6 py-4 font-semibold">Placa do carro</th>
+            <th class="px-6 py-4 font-semibold text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          @for (client of clients(); track client.id) {
+            <tr class="hover:bg-slate-50 transition">
+              <td class="px-6 py-4 text-slate-700 font-medium">{{ client.nome }}</td>
+              <td class="px-6 py-4 text-slate-500">{{ client.cpf }}</td>
+              <td class="px-6 py-4">
+                <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold border border-blue-100">
+                  {{ client.placaCarro }}
+                </span>
+              </td>
+              <td class="px-6 py-4 text-right">
+                <button (click)="delete(client.id)" class="text-red-500 hover:text-red-700 text-sm font-medium">Delete</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" class="px-6 py-10 text-center text-slate-400">No records found.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
